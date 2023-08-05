@@ -1,4 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using DotNetRazorMVC.Context;
+
 var builder = WebApplication.CreateBuilder(args);
+
+//Add a string de conexão
+builder
+    .Services
+    .AddDbContext<AgendaContext>(options => 
+        options.UseSqlServer(builder
+                    .Configuration
+                    .GetConnectionString("ConexaoPadrao")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
