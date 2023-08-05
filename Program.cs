@@ -1,9 +1,18 @@
+using Microsoft.EntityFrameworkCore;
+using MVC.NET.Context;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+builder
+    .Services
+    .AddDbContext<AgendaContext>(options => 
+                    options.UseSqlServer(builder.Configuration
+                           .GetConnectionString("ConexaoPadrao")));
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
