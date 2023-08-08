@@ -1,8 +1,58 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model IEnumerable<dotnetRazorMVC.Models.Contato>
+        
+    @{
+        ViewData["Title"] = "Listagem de Contatos";
+    }
+            
 
-<div class="text-center">
-    <h1 class="display-4">Contatos</h1>
-    <p> Informações de Contato </p>
-</div>
+<h2> Contatos </h2>
+
+<p>
+    <a asp-action="Criar" >Criar Contato</a>
+</p>
+
+<table class="table">  
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.Telefone)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => modelAtivo)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var i in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => i.Id)
+                </td>
+                
+                <td>
+                    @Html.DisplayFor(model => i.Nome)
+                </td>
+                
+                <td>
+                    @Html.DisplayFor(model => i.Telefone)
+                </td>
+                
+                <td>
+                    @Html.DisplayFor(model => i.Ativo)
+                </td>
+                <td>
+                    <a asp-action="Editar" asp-route-id="item.id">Editar</a> |
+                    <a asp-action="Detalhes" asp-route-id="item.">Detalhes</a> |
+                    <a asp-action="Deletar" asp-route-id="item.id">Deletar</a> |
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
