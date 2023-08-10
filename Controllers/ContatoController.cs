@@ -24,6 +24,7 @@ namespace DotNetRazorMVC.Controllers
             return View(contatos);
         }
 
+        [Route("contato/criar")]
         public IActionResult Criar()
         {
             return View();
