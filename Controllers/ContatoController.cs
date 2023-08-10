@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using DotNetRazorMVC.Context;
+using DotNetRazorMVC.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace DotNetRazorMVC.Controllers
 {
@@ -33,12 +35,13 @@ namespace DotNetRazorMVC.Controllers
         [HttpPost]
         public IActionResult Criar(Contato contato)
         {
-            if (ModelState.isValid)
+            if (ModelState.IsValid)
             {
                 _context.Contatos.Add(contato);
                 _context.SaveChanges();
-                return RedirectToAction(nameof(Index))
+                return RedirectToAction(nameof(Index));
             }
+            return View(contato);
         }
     }
 }
