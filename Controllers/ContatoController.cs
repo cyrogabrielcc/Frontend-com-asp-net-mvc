@@ -29,5 +29,16 @@ namespace DotNetRazorMVC.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Criar(Contato contato)
+        {
+            if (ModelState.isValid)
+            {
+                _context.Contatos.Add(contato);
+                _context.SaveChanges();
+                return RedirectToAction(nameof(Index))
+            }
+        }
     }
 }
