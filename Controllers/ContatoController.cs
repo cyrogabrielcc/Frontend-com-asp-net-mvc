@@ -20,18 +20,21 @@ namespace DotNetRazorMVC.Controllers
         {
             _context = context;
         }
+        
+        //  ---------- INICIO DA CRIAÇÃO DO CONTATO ----------- 
+        [Route("contato/index")] 
         public IActionResult Index()
         {
             var contatos = _context.Contatos.ToList();
             return View(contatos);
         }
 
-        [Route("contato/criar")]
         public IActionResult Criar()
         {
             return View();
         }
 
+        
         [HttpPost]
         public IActionResult Criar(Contato contato)
         {
@@ -43,5 +46,24 @@ namespace DotNetRazorMVC.Controllers
             }
             return View(contato);
         }
+
+        // ---------- FIM DA CRIAÇÃO DO CONTATO ----------- 
+
+        // ---------- INCIO DA EDIÇÃO DO CONTATO ----------- 
+
+        
+        [Route("contato/editar")] 
+        public IActionResult Editar(int id)
+        {
+            var contato  = _context.Contatos.Find(id);
+
+            if (contato == null) return RedirectToAction(nameof(Index));
+
+            return View(contato);
+
+        }
+
+
+
     }
 }
