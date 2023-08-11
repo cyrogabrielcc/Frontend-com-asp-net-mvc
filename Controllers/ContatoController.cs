@@ -22,19 +22,21 @@ namespace DotNetRazorMVC.Controllers
         }
         
         //  ---------- INICIO DA CRIAÇÃO DO CONTATO ----------- 
-        [Route("contato/index")] 
+        
         public IActionResult Index()
         {
             var contatos = _context.Contatos.ToList();
             return View(contatos);
         }
 
+        
+        
+        [Route("contato/criar")] 
         public IActionResult Criar()
         {
             return View();
         }
 
-        
         [HttpPost]
         public IActionResult Criar(Contato contato)
         {
@@ -49,21 +51,37 @@ namespace DotNetRazorMVC.Controllers
 
         // ---------- FIM DA CRIAÇÃO DO CONTATO ----------- 
 
-        // ---------- INCIO DA EDIÇÃO DO CONTATO ----------- 
 
-        
+
+
+        // ---------- INCIO DA EDIÇÃO DO CONTATO ----------- 
         [Route("contato/editar")] 
         public IActionResult Editar(int id)
         {
             var contato  = _context.Contatos.Find(id);
 
-            if (contato == null) return RedirectToAction(nameof(Index));
+                if (contato == null) {return RedirectToAction(nameof(Index));}
 
-            return View(contato);
+                    return View(contato);
 
         }
 
+        [HttpPost]
+        public IActionResult Editar (Contato contato)
+        {
+            // Declarando a variável para acessar as alterações
+            var contatoBanco = _context.Contatos.Find(contato.Id);
 
+            // Fazendo alterações
+            contatoBanco.Nome = contato.Nome;
+            contatoBanco.Telefone = contato.Telefone;
+            contatoBanco.Ativo = contato.Ativo;
+
+            // Fazendo atualização e salvando
+            _context.Contatos.Update(contatoBanco);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
 
     }
 }
