@@ -66,6 +66,7 @@ namespace DotNetRazorMVC.Controllers
 
         }
 
+        [Route("contato/editar")] 
         [HttpPost]
         public IActionResult Editar (Contato contato)
         {
@@ -83,5 +84,13 @@ namespace DotNetRazorMVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Route("contato/Detalhes")]
+        public IActionResult Detahes(int id){
+            var contato  = _context.Contatos.Find(id);
+
+                if (contato == null) {return RedirectToAction(nameof(Index));}
+
+                return View(contato);
+        }
     }
 }
