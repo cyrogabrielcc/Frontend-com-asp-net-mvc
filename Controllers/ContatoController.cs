@@ -85,12 +85,36 @@ namespace DotNetRazorMVC.Controllers
         }
 
         [Route("contato/Detalhes")]
-        public IActionResult Detahes(int id){
+        public IActionResult Detahes(int id)
+        {
             var contato  = _context.Contatos.Find(id);
 
                 if (contato == null) {return RedirectToAction(nameof(Index));}
 
                 return View(contato);
+        }
+
+        [Route("contato/Deletar")]
+        public IActionResult Deletar(int id)
+        {
+            var contato  = _context.Contatos.Find(id);
+
+                if (contato == null) {return RedirectToAction(nameof(Index));}
+
+                return View(contato);
+        }
+        
+        [HttpPost]
+        [Route("contato/Deletar")]
+        public IActionResult Deletar(Contato contato)
+        {
+            var contatoBanco  = _context.Contatos.Find(contato.Id);
+
+            _context.Remove(contatoBanco);
+            _context.SaveChanges();
+            
+            return RedirectToAction(nameof(Index));
+
         }
     }
 }
